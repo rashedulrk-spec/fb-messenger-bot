@@ -5,8 +5,8 @@ const axios = require("axios");
 const app = express();
 app.use(bodyParser.json());
 
-const PAGE_TOKEN = EAAMHx9ILwh0BQfxJbqUrLCax75wEjXhcSwZCE2JCJeuZAbfMZBjhj7U2wssXyTKjt0fOCR6dz2ijmIuoS2HNvlcjD984ZAqZCPy65G9VkcqVyYDFJ4BBcaVDcanpOeOyfXi8ZAeaiqpW8EMsOUfDwNN5O7bYZBJERGDaoUy4Co4qA3iorZCMy4Iq4XPJUiWgsxCW2GuXHwZDZD;
-const VERIFY_TOKEN = my_verify_token;
+const PAGE_TOKEN = "EAAMHx9ILwh0BQfxJbqUrLCax75wEjXhcSwZCE2JCJeuZAbfMZBjhj7U2wssXyTKjt0fOCR6dz2ijmIuoS2HNvlcjD984ZAqZCPy65G9VkcqVyYDFJ4BBcaVDcanpOeOyfXi8ZAeaiqpW8EMsOUfDwNN5O7bYZBJERGDaoUy4Co4qA3iorZCMy4Iq4XPJUiWgsxCW2GuXHwZDZD";
+const VERIFY_TOKEN = "my_verify_token";
 
 // Webhook verify
 app.get("/webhook", (req, res) => {
@@ -45,7 +45,6 @@ app.post("/webhook", (req, res) => {
     mainReply = "অর্ডার করতে চাইলে আপনার নাম ও ঠিকানা লিখুন।";
   }
 
-  // পুরো রিপ্লাই তৈরি
   const finalReply = 
 `আসসালামু আলাইকুম 🌸
 
@@ -57,7 +56,7 @@ ${mainReply}
   res.sendStatus(200);
 });
 
-// Send message function
+// Send message
 function sendMessage(senderId, message) {
   axios.post(
     `https://graph.facebook.com/v19.0/me/messages?access_token=${PAGE_TOKEN}`,
@@ -68,4 +67,5 @@ function sendMessage(senderId, message) {
   );
 }
 
-app.listen(3000, () => console.log("Bot running on port 3000"));
+const PORT = process.env.PORT || 3000;
+app.listen(PORT, () => console.log("Bot running on port " + PORT));
